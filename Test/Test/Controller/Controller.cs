@@ -11,24 +11,24 @@ namespace Test
         UsersService usersService = new UsersService();
         HistoryService historyService = new HistoryService();
 
-        public bool UsersId(string id)
+        public bool IsUserId(string id)
         {
-            return usersService.GetUsersId(id);
+            return usersService.UserIdExists(id);
         }
 
-        public bool MatchUsersPass(string id, string pwd)
+        public bool IsMatchUserPass(string id, string pwd)
         {
-            return usersService.GetMatchUsers(id, pwd);
+            return usersService.MatchUserExists(id, pwd);
         }
 
-        public void CallLogInsertHistory(int result, string id)
+        public void CallInsertLogHistory(int result, string id)
         {
-            historyService.LogInsertHistory(result, id);
+            historyService.InsertLogHistory(result, id);
         }
 
         public List<DateTime> LogTimesList(string id)
         {
-            return historyService.LogAcquisition(id);
+            return historyService.AcquisitionLog(id);
         }
 
     }

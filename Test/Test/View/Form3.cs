@@ -35,17 +35,17 @@ namespace Test
             }
 
             //IDの存在チェック
-            if (!controller.UsersId(id))
+            if (!controller.IsUserId(id))
             {
                 MessageBox.Show(Message.notUser);
                 return;
             }
 
             //IDとPwdのひもづきデータのチェック
-            if (!controller.MatchUsersPass(id, pwd))
+            if (!controller.IsMatchUserPass(id, pwd))
             {
                 MessageBox.Show(Message.differentPass);
-                controller.CallLogInsertHistory(0, id);
+                controller.CallInsertLogHistory(0, id);
                 return;
             }
 
@@ -130,7 +130,7 @@ namespace Test
                 }
             }
             MessageBox.Show("ログイン成功");
-            controller.CallLogInsertHistory(1, usersId);
+            controller.CallInsertLogHistory(1, usersId);
         }
     }
 }

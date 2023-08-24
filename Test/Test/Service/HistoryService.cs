@@ -14,13 +14,13 @@ namespace Test
         /// </summary>
         /// <param name="result"></param>
         /// <param name="usersId"></param>
-        public void LogInsertHistory(int result, string usersId)
+        public void InsertLogHistory(int result, string usersId)
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.connectionString))
             {
                 try
                 {
-                    MySqlCommand command = LogInsertCommand(result, usersId, connection);
+                    MySqlCommand command = InsertLogCommand(result, usersId, connection);
                     connection.Open();
                     command.ExecuteReader();
                 }
@@ -36,7 +36,7 @@ namespace Test
         /// </summary>
         /// <param name="usersId"></param>
         /// <returns></returns>
-        public List<DateTime> LogAcquisition(string usersId)
+        public List<DateTime> AcquisitionLog(string usersId)
         {
             List<DateTime> loginTimesList = new List<DateTime>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.connectionString))
@@ -71,7 +71,7 @@ namespace Test
         /// <param name="usersId"></param>
         /// <param name="connection"></param>
         /// <returns></returns>
-        private MySqlCommand LogInsertCommand(int result, string usersId, MySqlConnection connection)
+        private MySqlCommand InsertLogCommand(int result, string usersId, MySqlConnection connection)
         {
 
             string query = @"
@@ -83,9 +83,11 @@ namespace Test
                         ,LogResult
                         )
                     VALUES
-                        (@UsersID
+                        (
+                        @UsersID
                         , @LogTime
-                        , @LogResult);";
+                        , @LogResult
+                        );";
 
 
             MySqlCommand command = new MySqlCommand(query, connection);

@@ -14,7 +14,7 @@ namespace Test
         /// </summary>
         /// <param name="id">入力ID</param>
         /// <returns>IDがある場合はtrue、違う場合はfalse</returns>
-        public bool GetUsersId(string id)
+        public bool UserIdExists(string id)
         {
             int idCount = -1;
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.connectionString))
@@ -42,7 +42,7 @@ namespace Test
         /// <param name="id"></param>
         /// <param name="pwd"></param>
         /// <returns>紐付きの場合はtrue、違う場合はfalse</returns>
-        public bool GetMatchUsers(string id, string pwd)
+        public bool MatchUserExists(string id, string pwd)
         {
             int count = -1;
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.connectionString))
