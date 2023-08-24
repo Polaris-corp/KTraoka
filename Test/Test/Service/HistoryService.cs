@@ -74,17 +74,21 @@ namespace Test
         private MySqlCommand LogInsertCommand(int result, string usersId, MySqlConnection connection)
         {
 
-            StringBuilder query = new StringBuilder();
-            query.Append("INSERT INTO LoginHistory ");
-            query.Append("(UsersID, ");
-            query.Append("LogTime, ");
-            query.Append("LogResult) ");
-            query.Append("VALUES  ");
-            query.Append("(@UsersID, ");
-            query.Append("@LogTime, ");
-            query.Append("@LogResult)");
+            string query = @"
+                    INSERT INTO 
+                        LoginHistory
+                        (
+                        UsersID
+                        ,LogTime
+                        ,LogResult
+                        )
+                    VALUES
+                        (@UsersID
+                        , @LogTime
+                        , @LogResult);";
 
-            MySqlCommand command = new MySqlCommand(query.ToString(), connection);
+
+            MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@UsersID", usersId);
             command.Parameters.AddWithValue("@LogTime", DateTime.Now);
             command.Parameters.AddWithValue("@LogResult", result);
@@ -99,18 +103,20 @@ namespace Test
         /// <returns></returns>
         private MySqlCommand GetLogCommand(string usersId, MySqlConnection connection)
         {
-            StringBuilder query = new StringBuilder();
-            query.Append("SELECT ");
-            query.Append("LogTime, ");
-            query.Append("LogResult ");
-            query.Append("FROM LoginHistory ");
-            query.Append("WHERE UsersID = ");
-            query.Append("@UsersID ");
-            query.Append("ORDER BY ");
-            query.Append("LogTime DESC ");
-            query.Append("LIMIT 3");
+            string query = @"
+                    SELECT
+                        LogTime
+                        , LogResult 
+                    FROM
+                        LoginHistory 
+                    WHERE
+                        UsersID = @UsersID 
+                    ORDER BY
+                        LogTime DESC 
+                    LIMIT
+                        3;" ;
 
-            MySqlCommand command = new MySqlCommand(query.ToString(), connection);
+            MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@UsersID", usersId);
             return command;
         }

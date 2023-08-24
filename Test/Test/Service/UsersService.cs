@@ -73,7 +73,13 @@ namespace Test
         /// <returns></returns>
         private MySqlCommand UserCountCommand(string id, MySqlConnection connection)
         {
-            string query = "SELECT COUNT(*) FROM loginusers WHERE ID = @ID";
+            string query = @"
+                    SELECT
+                        COUNT(*) 
+                    FROM
+                        loginusers 
+                    WHERE
+                        ID = @ID;";
 
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@ID", id);
@@ -89,7 +95,15 @@ namespace Test
         /// <returns></returns>
         private MySqlCommand MatchCountCommand(string id, string pwd, MySqlConnection connection)
         {
-            string query = "SELECT COUNT(*) FROM loginusers WHERE ID = @ID AND Pwd = @pwd";
+            string query = @"
+                    SELECT
+                        COUNT(*) 
+                    FROM
+                        loginusers 
+                    WHERE
+                        ID = @ID 
+                        AND Pwd = @pwd;";
+
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@ID", id);
             command.Parameters.AddWithValue("@Pwd", pwd);

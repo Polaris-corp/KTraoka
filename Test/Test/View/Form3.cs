@@ -49,7 +49,6 @@ namespace Test
                 return;
             }
 
-
             List<DateTime> loginTimesList = LogAcquisition(id);
             CheckLoginTime(loginTimesList, id);
 
@@ -64,23 +63,26 @@ namespace Test
         private List<DateTime> LogAcquisition(string usersId)
         {
             //入力IDのヒストリー直近3件の受け取り
-            StringBuilder sql = new StringBuilder();
-            sql.Append("SELECT ");
-            sql.Append("LogTime, ");
-            sql.Append("LogResult ");
-            sql.Append("FROM LoginHistory ");
-            sql.Append("WHERE UsersID = ");
-            sql.Append("@UsersID ");
-            sql.Append("ORDER BY ");
-            sql.Append("LogTime DESC ");
-            sql.Append("LIMIT 3");
+            string sql = @"
+                SELECT
+                    LogTime
+                    , LogResult 
+                FROM
+                    LoginHistory 
+                WHERE
+                    UsersID = @UsersID 
+                ORDER BY
+                    LogTime DESC 
+                LIMIT
+                    3";
+
 
             List<DateTime> loginTimesList = new List<DateTime>();
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
                 {
-                    using (var command = new MySqlCommand(sql.ToString(), connection))
+                    using (var command = new MySqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@UsersID", usersId);
                         connection.Open();
