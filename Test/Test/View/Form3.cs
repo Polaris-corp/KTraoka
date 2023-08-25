@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySqlConnector;
+using Test.Controller;
+using Test.Common;
+
+
 
 namespace Test
 {
@@ -130,7 +134,7 @@ namespace Test
                 }
             }
             MessageBox.Show("ログイン成功");
-            controller.CallInsertLogHistory(1, usersId);
+            controller.UseInsertLogHistory(1, usersId);
         }
     }
 }

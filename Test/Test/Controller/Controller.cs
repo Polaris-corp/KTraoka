@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Test.Service;
 
-namespace Test
+namespace Test.Controller
 {
     public class Controller
     {

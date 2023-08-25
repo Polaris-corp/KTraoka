@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Test.Common;
 
-namespace Test
+namespace Test.Service
 {
-    class UsersService
+    public class UsersService
     {
         /// <summary>
         /// IDがあるかの確認メソッド

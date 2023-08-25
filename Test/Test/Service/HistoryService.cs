@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySqlConnector;
+using Test.Common;
 
-namespace Test
+namespace Test.Service
 {
-    class HistoryService
+    public class HistoryService
     {
         /// <summary>
         /// ログインヒストリーにインサートするメソッド
