@@ -21,7 +21,7 @@ namespace Test
             return usersService.MatchUserExists(id, pwd);
         }
 
-        public void CallInsertLogHistory(int result, string id)
+        public void UseInsertLogHistory(int result, string id)
         {
             historyService.InsertLogHistory(result, id);
         }

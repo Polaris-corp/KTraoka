@@ -28,7 +28,7 @@ namespace Test
             string pwd = textBox2.Text;
 
             //IDとPwd入力チェック
-            if (String.IsNullOrEmpty(id) || String.IsNullOrEmpty(pwd))
+            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(pwd))
             {
                 MessageBox.Show(Message.nullUserPass);
                 return;
@@ -45,7 +45,7 @@ namespace Test
             if (!controller.IsMatchUserPass(id, pwd))
             {
                 MessageBox.Show(Message.differentPass);
-                controller.CallInsertLogHistory(0, id);
+                controller.UseInsertLogHistory(0, id);
                 return;
             }
 

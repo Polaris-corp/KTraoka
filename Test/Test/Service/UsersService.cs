@@ -13,7 +13,7 @@ namespace Test
         /// IDがあるかの確認メソッド
         /// </summary>
         /// <param name="id">入力ID</param>
-        /// <returns>IDがある場合はtrue、違う場合はfalse</returns>
+        /// <returns>IDがある場合はtrue、ない場合はfalse</returns>
         public bool UserIdExists(string id)
         {
             int idCount = -1;
@@ -21,7 +21,7 @@ namespace Test
             {
                 try
                 {
-                    var command = UserCountCommand(id, connection);
+                    var command = UserIdCountCommand(id, connection);
                     connection.Open();
                     idCount = Convert.ToInt32(command.ExecuteScalar());
                 }
@@ -71,7 +71,7 @@ namespace Test
         /// <param name="id"></param>
         /// <param name="connection"></param>
         /// <returns></returns>
-        private MySqlCommand UserCountCommand(string id, MySqlConnection connection)
+        private MySqlCommand UserIdCountCommand(string id, MySqlConnection connection)
         {
             string query = @"
                     SELECT
