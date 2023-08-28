@@ -49,10 +49,10 @@ namespace Test.Service
                     var reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        DateTime logTime = Convert.ToDateTime(reader["LogTime"]);
                         int logResult = Convert.ToInt32(reader["LogResult"]);
                         if (logResult == 0)
                         {
+                            DateTime logTime = Convert.ToDateTime(reader["LogTime"]);
                             loginTimesList.Add(logTime);
                         }
                     }
