@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,6 +72,8 @@ namespace Test.View
             {
                 MessageBox.Show(ex.Message);
                 MessageBox.Show(ex.StackTrace);
+                string folderPath = @"C:\Users\user\source\repos\KTraoka\Test\Test";
+                string filePath = Path.Combine(folderPath, "stack_trace.txt");
             }
         }
     }
