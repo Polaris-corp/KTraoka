@@ -8,12 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySqlConnector;
-using Test.Controller;
-using Test.Common;
 
-
-
-namespace Test
+namespace Test.View
 {
     public partial class Form3 : Form
     {
@@ -23,7 +19,7 @@ namespace Test
         }
         string connectionString = "Server = localhost;Database = test;Uid = root;Pwd = 1105";
 
-        Controller controller = new Controller();
+        Controller.Controller controller = new Controller.Controller();
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -34,21 +30,21 @@ namespace Test
             //IDとPwd入力チェック
             if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(pwd))
             {
-                MessageBox.Show(Message.nullUserPass);
+                MessageBox.Show(Common.Message.nullUserPass);
                 return;
             }
 
             //IDの存在チェック
             if (!controller.IsUserId(id))
             {
-                MessageBox.Show(Message.notUser);
+                MessageBox.Show(Common.Message.notUser);
                 return;
             }
 
             //IDとPwdのひもづきデータのチェック
             if (!controller.IsMatchUserPass(id, pwd))
             {
-                MessageBox.Show(Message.differentPass);
+                MessageBox.Show(Common.Message.differentPass);
                 controller.UseInsertLogHistory(0, id);
                 return;
             }

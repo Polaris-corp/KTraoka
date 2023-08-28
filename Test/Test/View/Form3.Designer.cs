@@ -1,5 +1,5 @@
 ﻿
-namespace Test
+namespace Test.View
 {
     partial class Form3
     {
