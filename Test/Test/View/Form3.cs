@@ -34,23 +34,32 @@ namespace Test.View
                 return;
             }
 
-            //IDの存在チェック
-            if (!controller.IsUserId(id))
+            try
             {
-                MessageBox.Show(Common.Message.notUser);
-                return;
-            }
+                //IDの存在チェック
+                if (!controller.IsUserId(id))
+                {
+                    MessageBox.Show(Common.Message.notUser);
+                    return;
+                }
 
-            //IDとPwdのひもづきデータのチェック
-            if (!controller.IsMatchUserPass(id, pwd))
+                //IDとPwdのひもづきデータのチェック
+                if (!controller.IsMatchUserPass(id, pwd))
+                {
+                    MessageBox.Show(Common.Message.differentPass);
+                    controller.UseInsertLogHistory(0, id);
+                    return;
+                }
+
+                List<DateTime> loginTimesList = LogAcquisition(id);
+                CheckLoginTime(loginTimesList, id);
+            }
+            catch (Exception ex)
             {
-                MessageBox.Show(Common.Message.differentPass);
-                controller.UseInsertLogHistory(0, id);
-                return;
+                MessageBox.Show(ex.Message);
+                Console.WriteLine(ex.StackTrace);
             }
-
-            List<DateTime> loginTimesList = LogAcquisition(id);
-            CheckLoginTime(loginTimesList, id);
+            
 
         }
 
