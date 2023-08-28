@@ -21,7 +21,7 @@ namespace Test.Service
             {
                 MySqlCommand command = InsertLogCommand(result, usersId, connection);
                 connection.Open();
-                command.ExecuteReader();
+                command.ExecuteNonQuery();
             }
         }
 
