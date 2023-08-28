@@ -57,7 +57,7 @@ namespace Test.View
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Console.WriteLine(ex.StackTrace);
+                MessageBox.Show(ex.StackTrace);
             }
             
 
@@ -89,31 +89,20 @@ namespace Test.View
             List<DateTime> loginTimesList = new List<DateTime>();
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                try
+                using (var command = new MySqlCommand(sql, connection))
                 {
-                    using (var command = new MySqlCommand(sql, connection))
+                    command.Parameters.AddWithValue("@UsersID", usersId);
+                    connection.Open();
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
                     {
-                        command.Parameters.AddWithValue("@UsersID", usersId);
-                        connection.Open();
-                        var reader = command.ExecuteReader();
-                        while (reader.Read())
+                        DateTime logTime = Convert.ToDateTime(reader["LogTime"]);
+                        int logResult = Convert.ToInt32(reader["LogResult"]);
+                        if (logResult == 0)
                         {
-                            DateTime logTime = Convert.ToDateTime(reader["LogTime"]);
-                            int logResult = Convert.ToInt32(reader["LogResult"]);
-                            if (logResult == 0)
-                            {
-                                loginTimesList.Add(logTime);
-                            }
+                            loginTimesList.Add(logTime);
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-                finally
-                {
-                    connection.Close();
                 }
                 return loginTimesList;
             }

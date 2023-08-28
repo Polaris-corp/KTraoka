@@ -20,16 +20,9 @@ namespace Test.Service
             int idCount = -1;
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.connectionString))
             {
-                try
-                {
-                    var command = UserIdCountCommand(id, connection);
-                    connection.Open();
-                    idCount = Convert.ToInt32(command.ExecuteScalar());
-                }
-                catch (Exception ex)
-                {
-                    throw;
-                }
+                var command = UserIdCountCommand(id, connection);
+                connection.Open();
+                idCount = Convert.ToInt32(command.ExecuteScalar());
             }
             if (idCount == 1)
             {
@@ -48,16 +41,9 @@ namespace Test.Service
             int count = -1;
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.connectionString))
             {
-                try
-                {
-                    var command = MatchCountCommand(id, pwd, connection);
-                    connection.Open();
-                    count = Convert.ToInt32(command.ExecuteScalar());
-                }
-                catch (Exception ex)
-                {
-                    throw;
-                }
+                var command = MatchCountCommand(id, pwd, connection);
+                connection.Open();
+                count = Convert.ToInt32(command.ExecuteScalar());
             }
             if (count == 1)
             {

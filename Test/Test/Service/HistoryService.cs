@@ -19,16 +19,9 @@ namespace Test.Service
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.connectionString))
             {
-                try
-                {
-                    MySqlCommand command = InsertLogCommand(result, usersId, connection);
-                    connection.Open();
-                    command.ExecuteReader();
-                }
-                catch (Exception ex)
-                {
-                    throw;
-                }
+                MySqlCommand command = InsertLogCommand(result, usersId, connection);
+                connection.Open();
+                command.ExecuteReader();
             }
         }
 
@@ -42,24 +35,17 @@ namespace Test.Service
             List<DateTime> loginTimesList = new List<DateTime>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.connectionString))
             {
-                try
+                var command = GetLogCommand(usersId, connection);
+                connection.Open();
+                var reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    var command = GetLogCommand(usersId, connection);
-                    connection.Open();
-                    var reader = command.ExecuteReader();
-                    while (reader.Read())
+                    int logResult = Convert.ToInt32(reader["LogResult"]);
+                    if (logResult == 0)
                     {
-                        int logResult = Convert.ToInt32(reader["LogResult"]);
-                        if (logResult == 0)
-                        {
-                            DateTime logTime = Convert.ToDateTime(reader["LogTime"]);
-                            loginTimesList.Add(logTime);
-                        }
+                        DateTime logTime = Convert.ToDateTime(reader["LogTime"]);
+                        loginTimesList.Add(logTime);
                     }
-                }
-                catch (Exception ex)
-                {
-                    throw;
                 }
                 return loginTimesList;
             }
