@@ -13,8 +13,8 @@ namespace Test.Service
         /// <summary>
         /// ログインヒストリーにインサートするメソッド
         /// </summary>
-        /// <param name="result"></param>
-        /// <param name="usersId"></param>
+        /// <param name="result">ログイン判定</param>
+        /// <param name="usersId">入力ID</param>
         public void InsertLogHistory(int result, string usersId)
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.connectionString))
@@ -26,10 +26,10 @@ namespace Test.Service
         }
 
         /// <summary>
-        /// 
+        /// 入力IDのヒストリー取得メソッド
         /// </summary>
-        /// <param name="usersId"></param>
-        /// <returns></returns>
+        /// <param name="usersId">入力ID</param>
+        /// <returns>直近3回で失敗したヒストリーの降順リスト</returns>
         public List<DateTime> AcquisitionLog(string usersId)
         {
             List<DateTime> loginTimesList = new List<DateTime>();
@@ -54,10 +54,10 @@ namespace Test.Service
         /// <summary>
         /// ログインヒストリーインサート用のコマンド
         /// </summary>
-        /// <param name="result"></param>
-        /// <param name="usersId"></param>
+        /// <param name="result">ログイン判定</param>
+        /// <param name="usersId">入力ID</param>
         /// <param name="connection"></param>
-        /// <returns></returns>
+        /// <returns>コマンド</returns>
         private MySqlCommand InsertLogCommand(int result, string usersId, MySqlConnection connection)
         {
 
@@ -85,11 +85,11 @@ namespace Test.Service
         }
 
         /// <summary>
-        /// 入力IDでヒストリー直近3件の取得用コマンド
+        /// 入力IDで直近3件のヒストリー取得用コマンド
         /// </summary>
-        /// <param name="usersId"></param>
+        /// <param name="usersId">入力ID</param>
         /// <param name="connection"></param>
-        /// <returns></returns>
+        /// <returns>コマンド</returns>
         private MySqlCommand GetLogCommand(string usersId, MySqlConnection connection)
         {
             string query = @"

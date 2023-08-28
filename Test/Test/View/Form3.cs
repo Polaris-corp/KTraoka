@@ -17,7 +17,6 @@ namespace Test.View
         {
             InitializeComponent();
         }
-        string connectionString = "Server = localhost;Database = test;Uid = root;Pwd = 1105";
 
         Controller.Controller controller = new Controller.Controller();
 
@@ -30,7 +29,7 @@ namespace Test.View
             //IDとPwd入力チェック
             if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(pwd))
             {
-                MessageBox.Show(Common.Message.nullUserPass);
+                MessageBox.Show(Common.Message.NullUserPass);
                 return;
             }
 
@@ -39,96 +38,40 @@ namespace Test.View
                 //IDの存在チェック
                 if (!controller.IsUserId(id))
                 {
-                    MessageBox.Show(Common.Message.notUser);
+                    MessageBox.Show(Common.Message.NotUser);
                     return;
                 }
 
                 //IDとPwdのひもづきデータのチェック
                 if (!controller.IsMatchUserPass(id, pwd))
                 {
-                    MessageBox.Show(Common.Message.differentPass);
+                    MessageBox.Show(Common.Message.DifferentPass);
                     controller.UseInsertLogHistory(0, id);
                     return;
                 }
 
-                List<DateTime> loginTimesList = LogAcquisition(id);
-                CheckLoginTime(loginTimesList, id);
+                List<DateTime> loginTimesList = controller.LogTimesList(id);
+                //ログリストのチェック
+                if (controller.CheckLoginTime(loginTimesList))
+                {
+                    //最後のミスから3分以内かのチェック
+                    if (controller.CheckThreeMinutes(loginTimesList))
+                    {
+                        string lockTime = controller.GetLockTime(loginTimesList).ToString(@"mm\:ss");
+                        MessageBox.Show(Common.Message.Unlock + lockTime);
+                        return;
+                    }
+                }
+
+                //ログイン成功
+                MessageBox.Show(Common.Message.Success);
+                controller.UseInsertLogHistory(1, id);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 MessageBox.Show(ex.StackTrace);
             }
-            
-
-        }
-
-        
-        /// <summary>
-        /// 入力IDのヒストリー受け取りメソッド
-        /// </summary>
-        /// <param name="usersId"></param>
-        /// <returns></returns>
-        private List<DateTime> LogAcquisition(string usersId)
-        {
-            //入力IDのヒストリー直近3件の受け取り
-            string sql = @"
-                SELECT
-                    LogTime
-                    , LogResult 
-                FROM
-                    LoginHistory 
-                WHERE
-                    UsersID = @UsersID 
-                ORDER BY
-                    LogTime DESC 
-                LIMIT
-                    3";
-
-
-            List<DateTime> loginTimesList = new List<DateTime>();
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                using (var command = new MySqlCommand(sql, connection))
-                {
-                    command.Parameters.AddWithValue("@UsersID", usersId);
-                    connection.Open();
-                    var reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        DateTime logTime = Convert.ToDateTime(reader["LogTime"]);
-                        int logResult = Convert.ToInt32(reader["LogResult"]);
-                        if (logResult == 0)
-                        {
-                            loginTimesList.Add(logTime);
-                        }
-                    }
-                }
-                return loginTimesList;
-            }
-        }
-        /// <summary>
-        /// 入力IDの取得ヒストリーのチェック
-        /// </summary>
-        /// <param name="loginTimesList"></param>
-        /// <param name="usersId"></param>
-        private void CheckLoginTime(List<DateTime> loginTimesList, string usersId)
-        {
-            //チェック
-            int count = loginTimesList.Count;
-
-            if (count == 3 && (loginTimesList[0] - loginTimesList[2]).TotalMinutes <= 3)
-            {
-                DateTime unlockTime = loginTimesList[0].AddMinutes(3);
-                if (DateTime.Now < unlockTime)
-                {
-                    TimeSpan remainingTime = unlockTime - DateTime.Now;
-                    MessageBox.Show("残りロック時間: " + remainingTime.ToString(@"mm\:ss"));
-                    return;
-                }
-            }
-            MessageBox.Show("ログイン成功");
-            controller.UseInsertLogHistory(1, usersId);
         }
     }
 }

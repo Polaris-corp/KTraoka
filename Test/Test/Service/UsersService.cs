@@ -33,8 +33,8 @@ namespace Test.Service
         /// <summary>
         /// パスワードとIDが紐づいているか確認メソッド
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="pwd"></param>
+        /// <param name="id">入力ID</param>
+        /// <param name="pwd">入力pwd</param>
         /// <returns>紐付きの場合はtrue、違う場合はfalse</returns>
         public bool MatchUserExists(string id, string pwd)
         {
@@ -55,9 +55,9 @@ namespace Test.Service
         /// <summary>
         /// IDカウント用のコマンド
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">入力ID</param>
         /// <param name="connection"></param>
-        /// <returns></returns>
+        /// <returns>コマンド</returns>
         private MySqlCommand UserIdCountCommand(string id, MySqlConnection connection)
         {
             string query = @"
@@ -76,10 +76,10 @@ namespace Test.Service
         /// <summary>
         /// パスワードがIDと紐づいているかカウント用のコマンド
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="pwd"></param>
+        /// <param name="id">入力ID</param>
+        /// <param name="pwd">入力Pwd</param>
         /// <param name="connection"></param>
-        /// <returns></returns>
+        /// <returns>コマンド</returns>
         private MySqlCommand MatchCountCommand(string id, string pwd, MySqlConnection connection)
         {
             string query = @"

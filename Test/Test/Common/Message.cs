@@ -8,8 +8,10 @@ namespace Test.Common
 {
     public class Message
     {
-        public const string nullUserPass = "IDとPwdを入力して下さい";
-        public const string notUser = "ユーザーがいません";
-        public const string differentPass = "パスワードが違います";
+        public const string NullUserPass = "IDとPwdを入力して下さい";
+        public const string NotUser = "ユーザーがいません";
+        public const string DifferentPass = "パスワードが違います";
+        public const string Success = "ログイン成功";
+        public const string Unlock = "残りロック時間: ";
     }
 }

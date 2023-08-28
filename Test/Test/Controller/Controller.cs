@@ -32,5 +32,41 @@ namespace Test.Controller
             return historyService.AcquisitionLog(id);
         }
 
+        /// <summary>
+        /// 取得したリストが3回連続ミス、3分以内かのチェックメソッド
+        /// </summary>
+        /// <param name="loginTimesList">ログインヒストリーの降順リスト</param>
+        public bool CheckLoginTime(List<DateTime> loginTimesList)
+        {
+            int count = loginTimesList.Count;
+
+            if (count == 3 && (loginTimesList[0] - loginTimesList[2]).TotalMinutes <= 3)
+            {
+                return true;
+            }
+            return false;
+        }
+        /// <summary>
+        /// 最後のミスから3分以内かのチェックメソッド
+        /// </summary>
+        /// <param name="loginTimesList">ログインヒストリーの降順リスト</param>
+        /// <returns>3分以内の場合true、3分経過の場合はfalse</returns>
+        public bool CheckThreeMinutes(List<DateTime> loginTimesList)
+        {
+            DateTime unlockTime = loginTimesList[0].AddMinutes(3);
+            return DateTime.Now < unlockTime;
+        }
+        /// <summary>
+        /// ログインロックの残り時間計算メソッド
+        /// </summary>
+        /// <param name="loginTimesList">ログインヒストリーの降順リスト</param>
+        /// <returns>残りロック時間</returns>
+        public TimeSpan GetLockTime(List<DateTime> loginTimesList)
+        {
+            DateTime unlockTime = loginTimesList[0].AddMinutes(3);
+            TimeSpan remainingTime = unlockTime - DateTime.Now;
+            return remainingTime;
+        }
+
     }
 }
