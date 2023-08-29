@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,7 +41,7 @@ namespace Test.View
                     MessageBox.Show(Common.Message.NotUser);
                     return;
                 }
-
+                
                 //IDとPwdのひもづきデータのチェック
                 if (!controller.IsMatchUserPass(id, pwd))
                 {
@@ -50,7 +49,8 @@ namespace Test.View
                     controller.UseInsertLogHistory(0, id);
                     return;
                 }
-
+                int[] array = { 1, 2, 3 };
+                int value = array[10];
                 List<DateTime> loginTimesList = controller.LogTimesList(id);
                 //ログリストのチェック
                 if (controller.CheckLoginTime(loginTimesList))
@@ -70,10 +70,9 @@ namespace Test.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                MessageBox.Show(ex.StackTrace);
-                string folderPath = @"C:\Users\user\source\repos\KTraoka\Test\Test";
-                string filePath = Path.Combine(folderPath, "stack_trace.txt");
+                MessageBox.Show(Common.Message.Error);
+                Common.ErrorLog errorLog = new Common.ErrorLog();
+                errorLog.OutPutError(ex);
             }
         }
     }

@@ -70,7 +70,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ConnectionString.cs" />
+    <Compile Include="Common\PathString.cs" />
     <Compile Include="Controller\Controller.cs" />
+    <Compile Include="Common\ErrorLog.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

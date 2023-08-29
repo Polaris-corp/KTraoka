@@ -13,5 +13,6 @@ namespace Test.Common
         public const string DifferentPass = "パスワードが違います";
         public const string Success = "ログイン成功";
         public const string Unlock = "残りロック時間: ";
+        public const string Error = "エラーです";
     }
 }
