@@ -8,7 +8,7 @@ namespace Test.Common
 {
     public class PathString
     {
-        public const string folderPath = @".\ErrorLogs";
-        public const string filePath = @".\ErrorLogs\error_log.txt";
+        public const string FolderPath = @".\ErrorLogs";
+        public const string FilePath = @".\ErrorLogs\error_log.txt";
     }
 }

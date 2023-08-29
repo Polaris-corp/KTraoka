@@ -16,9 +16,9 @@ namespace Test.Common
         /// <param name="ex"></param>
         public void OutPutError(Exception ex)
         {
-            Directory.CreateDirectory(PathString.folderPath);
+            Directory.CreateDirectory(PathString.FolderPath);
 
-            using (StreamWriter writer = File.AppendText(PathString.filePath))
+            using (StreamWriter writer = File.AppendText(PathString.FilePath))
             {
                 writer.WriteLine($"[DateTime]: {DateTime.Now}");
                 writer.WriteLine($"[Exception Type]: {ex.GetType().FullName}");
