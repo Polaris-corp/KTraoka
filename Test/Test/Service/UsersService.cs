@@ -34,7 +34,7 @@ namespace Test.Service
         /// パスワードとIDが紐づいているか確認メソッド
         /// </summary>
         /// <param name="id">入力ID</param>
-        /// <param name="pwd">入力pwd</param>
+        /// <param name="pwd">入力Pwd</param>
         /// <returns>紐付きの場合はtrue、違う場合はfalse</returns>
         public bool MatchUserExists(string id, string pwd)
         {
@@ -89,7 +89,7 @@ namespace Test.Service
                         loginusers 
                     WHERE
                         ID = @ID 
-                        AND Pwd = @pwd;";
+                        AND Pwd = @Pwd;";
 
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@ID", id);
