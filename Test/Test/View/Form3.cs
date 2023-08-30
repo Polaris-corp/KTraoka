@@ -49,8 +49,7 @@ namespace Test.View
                     controller.UseInsertLogHistory(0, id);
                     return;
                 }
-                int[] array = { 1, 2, 3 };
-                int value = array[10];
+                
                 List<DateTime> loginTimesList = controller.LogTimesList(id);
                 //ログリストのチェック
                 if (controller.CheckLoginTime(loginTimesList))
