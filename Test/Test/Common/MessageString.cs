@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Test.Common
 {
-    public class Message
+    public class MessageString
     {
         public const string NullUserPass = "IDとPwdを入力して下さい";
         public const string NotUser = "ユーザーがいません";

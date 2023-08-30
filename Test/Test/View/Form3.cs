@@ -29,7 +29,7 @@ namespace Test.View
             //IDとPwd入力チェック
             if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(pwd))
             {
-                MessageBox.Show(Common.Message.NullUserPass);
+                MessageBox.Show(Common.MessageString.NullUserPass);
                 return;
             }
 
@@ -38,14 +38,14 @@ namespace Test.View
                 //IDの存在チェック
                 if (!controller.IsUserId(id))
                 {
-                    MessageBox.Show(Common.Message.NotUser);
+                    MessageBox.Show(Common.MessageString.NotUser);
                     return;
                 }
                 
                 //IDとPwdのひもづきデータのチェック
                 if (!controller.IsMatchUserPass(id, pwd))
                 {
-                    MessageBox.Show(Common.Message.DifferentPass);
+                    MessageBox.Show(Common.MessageString.DifferentPass);
                     controller.UseInsertLogHistory(0, id);
                     return;
                 }
@@ -58,18 +58,18 @@ namespace Test.View
                     if (controller.CheckThreeMinutes(loginTimesList))
                     {
                         string lockTime = controller.GetLockTime(loginTimesList).ToString(@"mm\:ss");
-                        MessageBox.Show(Common.Message.Unlock + lockTime);
+                        MessageBox.Show(Common.MessageString.Unlock + lockTime);
                         return;
                     }
                 }
 
                 //ログイン成功
-                MessageBox.Show(Common.Message.Success);
+                MessageBox.Show(Common.MessageString.Success);
                 controller.UseInsertLogHistory(1, id);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Common.Message.Error);
+                MessageBox.Show(Common.MessageString.Error);
                 Common.ErrorLog errorLog = new Common.ErrorLog();
                 errorLog.OutPutError(ex);
             }
