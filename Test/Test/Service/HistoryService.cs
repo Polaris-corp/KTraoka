@@ -17,7 +17,7 @@ namespace Test.Service
         /// <param name="usersId">入力ID</param>
         public void InsertLogHistory(int result, string usersId)
         {
-            using (MySqlConnection connection = new MySqlConnection(ConnectionString.connectionString))
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.ConnectionStr))
             {
                 MySqlCommand command = InsertLogCommand(result, usersId, connection);
                 connection.Open();
@@ -33,7 +33,7 @@ namespace Test.Service
         public List<DateTime> AcquisitionLog(string usersId)
         {
             List<DateTime> loginTimesList = new List<DateTime>();
-            using (MySqlConnection connection = new MySqlConnection(ConnectionString.connectionString))
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.ConnectionStr))
             {
                 var command = GetLogCommand(usersId, connection);
                 connection.Open();

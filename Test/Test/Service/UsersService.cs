@@ -18,7 +18,7 @@ namespace Test.Service
         public bool UserIdExists(string id)
         {
             int idCount = -1;
-            using (MySqlConnection connection = new MySqlConnection(ConnectionString.connectionString))
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.ConnectionStr))
             {
                 var command = UserIdCountCommand(id, connection);
                 connection.Open();
@@ -39,7 +39,7 @@ namespace Test.Service
         public bool MatchUserExists(string id, string pwd)
         {
             int count = -1;
-            using (MySqlConnection connection = new MySqlConnection(ConnectionString.connectionString))
+            using (MySqlConnection connection = new MySqlConnection(ConnectionString.ConnectionStr))
             {
                 var command = MatchCountCommand(id, pwd, connection);
                 connection.Open();

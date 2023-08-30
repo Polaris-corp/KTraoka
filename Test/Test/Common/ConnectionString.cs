@@ -8,6 +8,6 @@ namespace Test.Common
 {
     public class ConnectionString
     {
-        public const string connectionString = "Server = localhost;Database = test;Uid = root;Pwd = 1105";
+        public const string ConnectionStr = "Server = localhost;Database = test;Uid = root;Pwd = 1105";
     }
 }
