@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySqlConnector;
+using Test.Common;
 
 namespace Test.View
 {
@@ -29,7 +30,7 @@ namespace Test.View
             //IDとPwd入力チェック
             if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(pwd))
             {
-                MessageBox.Show(Common.MessageString.NullUserPass);
+                MessageBox.Show(MessageString.NullUserPass);
                 return;
             }
 
@@ -38,14 +39,14 @@ namespace Test.View
                 //IDの存在チェック
                 if (!controller.IsUserId(id))
                 {
-                    MessageBox.Show(Common.MessageString.NotUser);
+                    MessageBox.Show(MessageString.NotUser);
                     return;
                 }
                 
                 //IDとPwdのひもづきデータのチェック
                 if (!controller.IsMatchUserPass(id, pwd))
                 {
-                    MessageBox.Show(Common.MessageString.DifferentPass);
+                    MessageBox.Show(MessageString.DifferentPass);
                     controller.UseInsertLogHistory(0, id);
                     return;
                 }
@@ -58,19 +59,19 @@ namespace Test.View
                     if (controller.CheckThreeMinutes(loginTimesList))
                     {
                         string lockTime = controller.GetLockTime(loginTimesList).ToString(@"mm\:ss");
-                        MessageBox.Show(Common.MessageString.Unlock + lockTime);
+                        MessageBox.Show(MessageString.Unlock + lockTime);
                         return;
                     }
                 }
 
                 //ログイン成功
-                MessageBox.Show(Common.MessageString.Success);
+                MessageBox.Show(MessageString.Success);
                 controller.UseInsertLogHistory(1, id);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Common.MessageString.Error);
-                Common.ErrorLog errorLog = new Common.ErrorLog();
+                MessageBox.Show(MessageString.Error);
+                ErrorLog errorLog = new ErrorLog();
                 errorLog.OutPutError(ex);
             }
         }
