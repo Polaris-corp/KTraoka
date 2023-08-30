@@ -34,6 +34,9 @@ namespace Test.View
                 return;
             }
 
+            //ボタン押下時の時刻
+            DateTime buttonClickTime = DateTime.Now;
+
             try
             {
                 //IDの存在チェック
@@ -47,7 +50,7 @@ namespace Test.View
                 if (!controller.IsMatchUserPass(id, pwd))
                 {
                     MessageBox.Show(MessageString.DifferentPass);
-                    controller.UseInsertLogHistory(0, id);
+                    controller.UseInsertLogHistory(0, id, buttonClickTime);
                     return;
                 }
                 
@@ -56,9 +59,9 @@ namespace Test.View
                 if (controller.CheckLoginTime(loginTimesList))
                 {
                     //最後のミスから3分以内かのチェック
-                    if (controller.CheckThreeMinutes(loginTimesList))
+                    if (controller.CheckThreeMinutes(loginTimesList, buttonClickTime))
                     {
-                        string lockTime = controller.GetLockTime(loginTimesList).ToString(@"mm\:ss");
+                        string lockTime = controller.GetLockTime(loginTimesList, buttonClickTime).ToString(@"mm\:ss");
                         MessageBox.Show(MessageString.Unlock + lockTime);
                         return;
                     }
@@ -66,13 +69,13 @@ namespace Test.View
 
                 //ログイン成功
                 MessageBox.Show(MessageString.Success);
-                controller.UseInsertLogHistory(1, id);
+                controller.UseInsertLogHistory(1, id, buttonClickTime);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(MessageString.Error);
                 ErrorLog errorLog = new ErrorLog();
-                errorLog.OutPutError(ex);
+                errorLog.OutPutError(ex, buttonClickTime);
             }
         }
     }

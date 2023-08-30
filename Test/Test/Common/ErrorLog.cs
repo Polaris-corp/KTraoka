@@ -14,13 +14,13 @@ namespace Test.Common
         /// エラーフォルダ内のエラーテキストファイルにエラーログを出力するメソッド
         /// </summary>
         /// <param name="ex"></param>
-        public void OutPutError(Exception ex)
+        public void OutPutError(Exception ex, DateTime buttonClickTime)
         {
             Directory.CreateDirectory(PathString.FolderPath);
 
             using (StreamWriter writer = File.AppendText(PathString.FilePath))
             {
-                writer.WriteLine($"[DateTime]: {DateTime.Now}");
+                writer.WriteLine($"[DateTime]: {buttonClickTime}");
                 writer.WriteLine($"[Exception Type]: {ex.GetType().FullName}");
                 writer.WriteLine($"[Message]: {ex.Message}");
                 writer.WriteLine($"[StackTrace]: {ex.StackTrace}");

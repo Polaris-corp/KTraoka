@@ -15,11 +15,11 @@ namespace Test.Service
         /// </summary>
         /// <param name="result">ログイン判定</param>
         /// <param name="usersId">入力ID</param>
-        public void InsertLogHistory(int result, string usersId)
+        public void InsertLogHistory(int result, string usersId, DateTime buttonClickTime)
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.ConnectionStr))
             {
-                MySqlCommand command = InsertLogCommand(result, usersId, connection);
+                MySqlCommand command = InsertLogCommand(result, usersId, connection, buttonClickTime);
                 connection.Open();
                 command.ExecuteNonQuery();
             }
@@ -58,7 +58,7 @@ namespace Test.Service
         /// <param name="usersId">入力ID</param>
         /// <param name="connection"></param>
         /// <returns>コマンド</returns>
-        private MySqlCommand InsertLogCommand(int result, string usersId, MySqlConnection connection)
+        private MySqlCommand InsertLogCommand(int result, string usersId, MySqlConnection connection, DateTime buttonClickTime)
         {
 
             string query = @"
@@ -79,7 +79,7 @@ namespace Test.Service
 
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@UsersID", usersId);
-            command.Parameters.AddWithValue("@LogTime", DateTime.Now);
+            command.Parameters.AddWithValue("@LogTime", buttonClickTime);
             command.Parameters.AddWithValue("@LogResult", result);
             return command;
         }

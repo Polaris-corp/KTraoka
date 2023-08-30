@@ -22,9 +22,9 @@ namespace Test.Controller
             return usersService.MatchUserExists(id, pwd);
         }
 
-        public void UseInsertLogHistory(int result, string id)
+        public void UseInsertLogHistory(int result, string id, DateTime buttonClickTime)
         {
-            historyService.InsertLogHistory(result, id);
+            historyService.InsertLogHistory(result, id, buttonClickTime);
         }
 
         public List<DateTime> LogTimesList(string id)
@@ -51,20 +51,20 @@ namespace Test.Controller
         /// </summary>
         /// <param name="loginTimesList">ログインヒストリーの降順リスト</param>
         /// <returns>3分以内の場合true、3分経過の場合はfalse</returns>
-        public bool CheckThreeMinutes(List<DateTime> loginTimesList)
+        public bool CheckThreeMinutes(List<DateTime> loginTimesList, DateTime buttonClickTime)
         {
             DateTime unlockTime = loginTimesList[0].AddMinutes(3);
-            return DateTime.Now < unlockTime;
+            return buttonClickTime < unlockTime;
         }
         /// <summary>
         /// ログインロックの残り時間計算メソッド
         /// </summary>
         /// <param name="loginTimesList">ログインヒストリーの降順リスト</param>
         /// <returns>残りロック時間</returns>
-        public TimeSpan GetLockTime(List<DateTime> loginTimesList)
+        public TimeSpan GetLockTime(List<DateTime> loginTimesList, DateTime buttonClickTime)
         {
             DateTime unlockTime = loginTimesList[0].AddMinutes(3);
-            TimeSpan remainingTime = unlockTime - DateTime.Now;
+            TimeSpan remainingTime = unlockTime - buttonClickTime;
             return remainingTime;
         }
 
