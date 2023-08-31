@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Test.Common
 {
-    public class PathString
+    static class PathString
     {
         public const string DirectoryPath = @".\ErrorLogs";
         public const string FileName = @"\error_log.txt";
