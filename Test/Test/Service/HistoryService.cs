@@ -15,7 +15,7 @@ namespace Test.Service
         /// </summary>
         /// <param name="result">ログイン判定</param>
         /// <param name="usersId">入力ID</param>
-        public void InsertLogHistory(int result, string usersId, DateTime buttonClickTime)
+        public void InsertLogHistory(int result, int usersId, DateTime buttonClickTime)
         {
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.ConnectionStr))
             {
@@ -30,7 +30,7 @@ namespace Test.Service
         /// </summary>
         /// <param name="usersId">入力ID</param>
         /// <returns>直近3回で失敗したヒストリーの降順リスト</returns>
-        public List<DateTime> AcquisitionLog(string usersId)
+        public List<DateTime> AcquisitionLog(int usersId)
         {
             List<DateTime> loginTimesList = new List<DateTime>();
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.ConnectionStr))
@@ -58,7 +58,7 @@ namespace Test.Service
         /// <param name="usersId">入力ID</param>
         /// <param name="connection"></param>
         /// <returns>コマンド</returns>
-        private MySqlCommand InsertLogCommand(int result, string usersId, MySqlConnection connection, DateTime buttonClickTime)
+        private MySqlCommand InsertLogCommand(int result, int usersId, MySqlConnection connection, DateTime buttonClickTime)
         {
 
             string query = @"
@@ -90,7 +90,7 @@ namespace Test.Service
         /// <param name="usersId">入力ID</param>
         /// <param name="connection"></param>
         /// <returns>コマンド</returns>
-        private MySqlCommand GetLogCommand(string usersId, MySqlConnection connection)
+        private MySqlCommand GetLogCommand(int usersId, MySqlConnection connection)
         {
             string query = @"
                     SELECT

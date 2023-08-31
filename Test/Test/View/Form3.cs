@@ -24,16 +24,22 @@ namespace Test.View
         private void button1_Click(object sender, EventArgs e)
         {
             //IDとPwdを受け取る
-            string id = textBox1.Text;
+            string userid = textBox1.Text;
             string pwd = textBox2.Text;
 
             //IDとPwd入力チェック
-            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(pwd))
+            if (string.IsNullOrEmpty(userid) || string.IsNullOrEmpty(pwd))
             {
                 MessageBox.Show(MessageString.NullUserPass);
                 return;
             }
-
+            int id = -1;
+            if (!int.TryParse(userid, out id))
+            {
+                MessageBox.Show(MessageString.NotPossible);
+                return;
+            }
+            
             //ボタン押下時の時刻
             DateTime buttonClickTime = DateTime.Now;
 

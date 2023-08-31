@@ -13,22 +13,22 @@ namespace Test.Controller
         UsersService usersService = new UsersService();
         HistoryService historyService = new HistoryService();
 
-        public bool IsUserId(string id)
+        public bool IsUserId(int id)
         {
             return usersService.UserIdExists(id);
         }
 
-        public bool IsMatchUserPass(string id, string pwd)
+        public bool IsMatchUserPass(int id, string pwd)
         {
             return usersService.MatchUserExists(id, pwd);
         }
 
-        public void UseInsertLogHistory(int result, string id, DateTime buttonClickTime)
+        public void UseInsertLogHistory(int result, int id, DateTime buttonClickTime)
         {
             historyService.InsertLogHistory(result, id, buttonClickTime);
         }
 
-        public List<DateTime> LogTimesList(string id)
+        public List<DateTime> LogTimesList(int id)
         {
             return historyService.AcquisitionLog(id);
         }

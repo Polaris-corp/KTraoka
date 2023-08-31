@@ -15,7 +15,7 @@ namespace Test.Service
         /// </summary>
         /// <param name="id">入力ID</param>
         /// <returns>IDがある場合はtrue、ない場合はfalse</returns>
-        public bool UserIdExists(string id)
+        public bool UserIdExists(int id)
         {
             int idCount = -1;
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.ConnectionStr))
@@ -36,7 +36,7 @@ namespace Test.Service
         /// <param name="id">入力ID</param>
         /// <param name="pwd">入力Pwd</param>
         /// <returns>紐付きの場合はtrue、違う場合はfalse</returns>
-        public bool MatchUserExists(string id, string pwd)
+        public bool MatchUserExists(int id, string pwd)
         {
             int count = -1;
             using (MySqlConnection connection = new MySqlConnection(ConnectionString.ConnectionStr))
@@ -58,7 +58,7 @@ namespace Test.Service
         /// <param name="id">入力ID</param>
         /// <param name="connection"></param>
         /// <returns>コマンド</returns>
-        private MySqlCommand UserIdCountCommand(string id, MySqlConnection connection)
+        private MySqlCommand UserIdCountCommand(int id, MySqlConnection connection)
         {
             string query = @"
                     SELECT
@@ -80,7 +80,7 @@ namespace Test.Service
         /// <param name="pwd">入力Pwd</param>
         /// <param name="connection"></param>
         /// <returns>コマンド</returns>
-        private MySqlCommand MatchCountCommand(string id, string pwd, MySqlConnection connection)
+        private MySqlCommand MatchCountCommand(int id, string pwd, MySqlConnection connection)
         {
             string query = @"
                     SELECT

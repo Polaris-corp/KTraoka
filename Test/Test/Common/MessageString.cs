@@ -14,5 +14,7 @@ namespace Test.Common
         public const string Success = "ログイン成功";
         public const string Unlock = "残りロック時間: ";
         public const string Error = "エラーです";
+        public const string NotPossible = "IDに使用できない文字が含まれます";
+
     }
 }
