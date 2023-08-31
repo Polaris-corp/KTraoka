@@ -50,7 +50,7 @@ namespace Test.View
                 if (!controller.IsMatchUserPass(id, pwd))
                 {
                     MessageBox.Show(MessageString.DifferentPass);
-                    controller.UseInsertLogHistory(0, id, buttonClickTime);
+                    controller.UseInsertLogHistory(ConstNums.Ng, id, buttonClickTime);
                     return;
                 }
                 
@@ -69,7 +69,7 @@ namespace Test.View
 
                 //ログイン成功
                 MessageBox.Show(MessageString.Success);
-                controller.UseInsertLogHistory(1, id, buttonClickTime);
+                controller.UseInsertLogHistory(ConstNums.Ok, id, buttonClickTime);
             }
             catch (Exception ex)
             {

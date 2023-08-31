@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Test.Service;
+using Test.Common;
 
 namespace Test.Controller
 {
@@ -40,7 +41,7 @@ namespace Test.Controller
         {
             int count = loginTimesList.Count;
 
-            if (count == 3 && (loginTimesList[0] - loginTimesList[2]).TotalMinutes <= 3)
+            if (count == ConstNums.FailureCount && (loginTimesList[0] - loginTimesList[2]).TotalMinutes <= ConstNums.JudgeTime)
             {
                 return true;
             }
@@ -53,7 +54,7 @@ namespace Test.Controller
         /// <returns>3分以内の場合true、3分経過の場合はfalse</returns>
         public bool CheckThreeMinutes(List<DateTime> loginTimesList, DateTime buttonClickTime)
         {
-            DateTime unlockTime = loginTimesList[0].AddMinutes(3);
+            DateTime unlockTime = loginTimesList[0].AddMinutes(ConstNums.AddTime);
             return buttonClickTime < unlockTime;
         }
         /// <summary>
@@ -63,7 +64,7 @@ namespace Test.Controller
         /// <returns>残りロック時間</returns>
         public TimeSpan GetLockTime(List<DateTime> loginTimesList, DateTime buttonClickTime)
         {
-            DateTime unlockTime = loginTimesList[0].AddMinutes(3);
+            DateTime unlockTime = loginTimesList[0].AddMinutes(ConstNums.AddTime);
             TimeSpan remainingTime = unlockTime - buttonClickTime;
             return remainingTime;
         }
