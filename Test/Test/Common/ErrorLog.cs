@@ -16,9 +16,9 @@ namespace Test.Common
         /// <param name="ex"></param>
         public void OutPutError(Exception ex, DateTime buttonClickTime)
         {
-            Directory.CreateDirectory(PathString.FolderPath);
+            Directory.CreateDirectory(PathString.DirectoryPath);
 
-            using (StreamWriter writer = File.AppendText(PathString.FilePath))
+            using (StreamWriter writer = File.AppendText(PathString.DirectoryPath + PathString.FileName))
             {
                 writer.WriteLine($"[DateTime]: {buttonClickTime}");
                 writer.WriteLine($"[Exception Type]: {ex.GetType().FullName}");
